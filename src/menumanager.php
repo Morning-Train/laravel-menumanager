@@ -13,17 +13,43 @@ class menumanager extends Facade {
 
 	public static $menuStore = array();
 	
-	public static function addMenuItem($context, $item)
+	public static function addItem($context, $item)
 	{
 		if(!isset(self::$menuStore[$context]))
 		{
 			self::$menuStore[$context] = array();
 		}
-		self::$menuStore[$context][] = $item;
-		
+		if(isset($item['as']))
+		{
+			if(!empty(self::$menuStore[$context]))
+			{
+				foreach(self::$menuStore[$context] as $key => $entry)
+				{
+					if(isset($entry['as']) && $item['as'] == $entry['as'])
+					{
+						$entry = array_merge($entry, $item);
+						if(!isset($entry['children']))
+						{
+							$entry['children'] = array();
+						}
+						if(!isset($item['children']))
+						{
+							$item['children'] = array();
+						}
+						$entry['children'] = array_merge($item['children'], $entry['children']);
+						self::$menuStore[$context][$key] = $entry;
+						unset($item);
+					}
+				}
+			}
+		}
+		if(isset($item))
+		{
+			self::$menuStore[$context][] = $item;
+		}
 	}
 	
-	public static function getMenu($context)
+	public static function getMenuStructure($context)
 	{
 		if(isset(self::$menuStore[$context]))
 		{
@@ -32,9 +58,9 @@ class menumanager extends Facade {
 		return array();
 	}
 	
-	public static function generateMenu($context)
+	public static function get($context)
 	{
-		$menu = self::getMenu($context);
+		$menu = self::getMenuStructure($context);
 		$output = '';
 		$output .= '<div id="menuh-container" >';
 		$output .= '<div id="menuh" >';
