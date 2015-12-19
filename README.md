@@ -1,7 +1,7 @@
 # Menu manager for Laravel
 
 [![Software License](https://img.shields.io/badge/licence-%20GNU%20General%20Public%20License%20v3.0-brightgreen.svg)](LICENSE.md)
-![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
+![](https://img.shields.io/badge/version-1.0.1-brightgreen.svg)
 
 ## Install
 
