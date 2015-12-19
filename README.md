@@ -1,16 +1,7 @@
-# menumanager
+# Menu manager for Laravel
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
-
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```morningtrain``` ```menumanager``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+[![Software License](https://img.shields.io/badge/licence-%20GNU%20General%20Public%20License%20v3.0-brightgreen.svg)](LICENSE.md)
+![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
 
 ## Install
 
@@ -36,7 +27,29 @@ morningtrain\menumanager\menumanagerServiceProvider::class,
 
 ``` php
 
+	Menu::addItem('admin', ['routealias' => 'someroute', 'title' => 'Menu item title']);
+		
+	Menu::addItem('admin', ['as' => 'unique_name', 'routealias' => 'someroute', 'title' => 'Indhold', 'children' => [
+		['routealias' => 'someroute', 'title' => 'Menu item 1'],
+		['routealias' => 'someroute', 'title' => 'Menu item 2'],
+		['routealias' => 'someroute', 'title' => 'Menu item 3'],
+		['routealias' => 'someroute', 'title' => 'Menu item 4'],
+		['routealias' => 'someroute', 'title' => 'Menu item 5'],
+	]]);
+	
+	Menu::addItem('admin', ['as' => 'unique_name', 'routealias' => 'someroute', 'title' => 'Indhold', 'children' => [
+		['routealias' => 'someroute', 'title' => 'Menu item 1'],
+		['routealias' => 'someroute', 'title' => 'Menu item 2'],
+		['routealias' => 'someroute', 'title' => 'Menu item 3'],
+		['routealias' => 'someroute', 'title' => 'Menu item 4'],
+		['routealias' => 'someroute', 'title' => 'Menu item 5'],
+	]]);
 
+```
+
+``` php
+
+	{!! Menu::get('admin') !!}
 
 ```
 
