@@ -17,8 +17,20 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
+
 $ composer require morningtrain/menumanager
+
 ```
+
+Add this service provider to your config/app.php file.
+
+``` php
+
+morningtrain\menumanager\menumanagerServiceProvider::class,
+
+```
+
+
 
 ## Usage
 
