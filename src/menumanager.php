@@ -19,6 +19,21 @@ class menumanager extends Facade {
 		{
 			self::$menuStore[$context] = array();
 		}
+		$href = 'javascript:void()';
+		if(isset($item['routealias'])) 
+		{
+			$href = \URL::route($item['routealias']);
+		}
+		else if(isset($item['url']))
+		{
+			$href = $item['url'];
+		}
+		$item['href'] = $href;
+		if(!isset($item['class']))
+		{
+			$item['class'] = '';
+		}
+		$item['class'] .= (isset($item['children']) && is_array($item['children']) && !empty($item['children']))?' parent ':'';
 		if(isset($item['as']))
 		{
 			if(!empty(self::$menuStore[$context]))
@@ -58,18 +73,25 @@ class menumanager extends Facade {
 		return array();
 	}
 	
-	public static function get($context)
+	public static function get($context, $view = null)
 	{
 		$menu = self::getMenuStructure($context);
 		$output = '';
-		$output .= '<div id="menuh-container" >';
-		$output .= '<div id="menuh" >';
-		if(!empty($menu))
+		if($view != null)
 		{
-			$output .= self::generateMenuItems($menu);
+			$output = view($view)->with('menuitems', $menu)->render();
 		}
-		$output .= '</div>';
-		$output .= '</div>';
+		else
+		{
+			$output .= '<div id="menuh-container" >';
+			$output .= '<div id="menuh" >';
+			if(!empty($menu))
+			{
+				$output .= self::generateMenuItems($menu);
+			}
+			$output .= '</div>';
+			$output .= '</div>';
+		}
 		return $output;
 	}
 	
